@@ -1,0 +1,75 @@
+
+        <div class="page-header">
+            <h1><a href="/">{% block title %} {% endblock %}</a></h1>
+        </div>
+
+
+
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                {% block content %}
+  
+
+
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <style type="text/css">
+
+        <style type="text/css">
+        .navbar {
+          min-height: 100px;
+          background-color:#2F4F4F;
+          color: black; 
+          width:1370px;
+          padding-left: 0px;
+          position: absolute;
+          left:0px;
+        }
+
+        .navbar-brand {
+          padding: 0 15px;
+          height: 80px;
+          line-height: 80px;
+        }
+
+        .navbar-toggle {
+          /* (80px - button height 34px) / 2 = 23px */
+          margin-top: 23px;
+          padding: 9px 10px ;
+        }
+
+        @media (min-width: 768px) {
+          .navbar-nav > li > a {
+            /* (80px - line-height of 27px) / 2 = 26.5px */
+            padding-top: 26.5px;
+            padding-bottom: 26.5px;
+            line-height: 27px;
+          }
+        }
+        .container-fluid{
+            padding: 0 10px;
+            height: 70px;
+            line-height: 70px;
+        }
+        .carousel-inner{
+            width: 75%;
+            position: relative;
+            left:180px;
+
+        }
+        
+
+
+    </style>
