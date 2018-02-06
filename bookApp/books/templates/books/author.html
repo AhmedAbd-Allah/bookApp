@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
@@ -11,7 +12,9 @@
 	<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 	
 <link rel="stylesheet" type="text/css" href="../../static/css/style.css">
-</head>
+</head> -->
+{% block title %} {{auther.auther_name}} {% endblock %}
+{% block content %}
 <body id="authorpage">
 <div >
 <h3 id="autname">George Martin</h3>
@@ -35,6 +38,7 @@
 </div>
 
 </div>
+{% endblock %}
 
-</body>
-</html>
+<!-- </body>
+</html> -->

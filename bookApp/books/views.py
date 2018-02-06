@@ -1,20 +1,27 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth import login,get_user_model
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import Book
 from django.contrib.auth import authenticate,login,logout
 from django.views import generic
 from django.views.generic import View
 from django import forms
-from .forms import RegisterUser
+from .forms import RegisterUser,user_login
 # from .forms import RegisterationForm
 
 # from django.core.context_processors import csrf
 
 # Create your views here.
 
+User=get_user_model()
+
 def index(request):
-	return HttpResponse("hello world")
+	if request.user.is_authentcated():
+		# print("hello"+request.user.first_name)
+		# return HttpResponse("hello world")
+		return render (request,"books/home.html",{})
+	
 
 
 #registeration form view 
@@ -34,9 +41,30 @@ def registerView(request,*args,**kwargs):
 			password = form.cleaned_data['password']
 			user.set_password(password)	
 			user.save()
+			return HttpResponseRedirect("/books/login")
 		else:
-			render(request,'books/regForm.html',{'form':form})	
-			
+			return render(request,'books/regForm.html',{'form':form})	
+
+def loginView(request,*args,**kwargs):
+	if request.method=='GET':
+		form=user_login()
+		return render(request,"books/login.html",{'form':form})
+	elif request.method=='POST':
+		form=user_login(request.POST)
+		if form.is_valid():
+			username=form.cleaned_data.get('username')
+			user_obj=User.objects.get(username=username)
+			login(request,user_obj)
+			return HttpResponseRedirect("/books/login")
+		return render(request,"books/login.html",{'form':form})	
+
+
+def logoutView(request,*args,**kwargs):
+	logout(request)
+	return HttpResponseRedirect("/books/login/")
+
+def authorView(request,*args,**kwargs):
+	return render(request,'books/author.html',{})			
 
 	# def get(self,request):
 	# 	form = self.form_class()
