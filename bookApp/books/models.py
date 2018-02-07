@@ -5,18 +5,7 @@ from django.conf import settings
 from django.db.models.signals import post_save
 
 # Create your models here.
-class Book(models.Model):
-	book_id = models.AutoField(primary_key=True)
-	book_name = models.CharField(max_length=200)
-	author_id = models.ForeignKey('Author',on_delete=models.CASCADE)
-	published_at = models.DateField()
-	country = models.CharField(max_length=100)
-	link = models.URLField(max_length=1000)
-	summary = models.CharField(max_length=1000)
-	image = models.ImageField( upload_to='books/images/books')
-	user = models.ManyToManyField('auth.User',through='books.User_book')
-	def __str__(self):
-		return self.book_name
+
 	
 class Author(models.Model):
 	author_id = models.AutoField(primary_key=True)
@@ -28,6 +17,19 @@ class Author(models.Model):
 	user = models.ManyToManyField('auth.User',through='books.User_author')
 	def __str__(self):
 		return self.author_name
+
+class Book(models.Model):
+	book_id = models.AutoField(primary_key=True)
+	book_name = models.CharField(max_length=200)
+	author_id = models.ForeignKey('Author',on_delete=models.CASCADE)
+	published_at = models.DateField()
+	country = models.CharField(max_length=100)
+	link = models.URLField(max_length=1000)
+	summary = models.CharField(max_length=1000)
+	image = models.ImageField( upload_to="books/images/books")
+	user = models.ManyToManyField('auth.User',through='books.User_book')
+	def __str__(self):
+		return self.book_name		
 
 class Category(models.Model):
 	category_id = models.AutoField(primary_key=True)

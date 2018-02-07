@@ -2,7 +2,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login,get_user_model
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import Book
+from .models import Book,Author
 from django.contrib.auth import authenticate,login,logout
 from django.views import generic
 from django.views.generic import View
@@ -63,8 +63,14 @@ def logoutView(request,*args,**kwargs):
 	logout(request)
 	return HttpResponseRedirect("/books/login/")
 
-def authorView(request,*args,**kwargs):
-	return render(request,'books/author.html',{})			
+def authorView(request,author_id,*args,**kwargs):
+	author=Author.objects.get(author_id=author_id)
+	# author1=Author.objects.get(author_id=1)
+	return render(request,'books/author.html',{'author': author})	
+
+def allAuthorView(request,*args,**kwargs):
+	authors=Author.objects.all()
+	return render(request,'books/all_authors.html',{'authors':authors})			
 
 	# def get(self,request):
 	# 	form = self.form_class()
