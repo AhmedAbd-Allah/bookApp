@@ -45,6 +45,7 @@ def registerView(request,*args,**kwargs):
 		else:
 			return render(request,'books/regForm.html',{'form':form})	
 
+#login form view
 def loginView(request,*args,**kwargs):
 	if request.method=='GET':
 		form=user_login()
@@ -58,16 +59,18 @@ def loginView(request,*args,**kwargs):
 			return HttpResponseRedirect("/books/login")
 		return render(request,"books/login.html",{'form':form})	
 
-
+#logout view
 def logoutView(request,*args,**kwargs):
 	logout(request)
 	return HttpResponseRedirect("/books/login/")
 
+#author page view
 def authorView(request,author_id,*args,**kwargs):
 	author=Author.objects.get(author_id=author_id)
 	# author1=Author.objects.get(author_id=1)
 	return render(request,'books/author.html',{'author': author})	
 
+#all authors page view
 def allAuthorView(request,*args,**kwargs):
 	authors=Author.objects.all()
 	return render(request,'books/all_authors.html',{'authors':authors})			
@@ -103,5 +106,4 @@ def allAuthorView(request,*args,**kwargs):
 	# 		user.save()
 
 
-class loginForm():
-	pass			
+	
