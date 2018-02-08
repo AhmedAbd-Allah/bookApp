@@ -15,6 +15,7 @@ class Author(models.Model):
 	image = models.ImageField( upload_to='books/images/authors')
 	contact = models.EmailField(max_length=300)
 	user = models.ManyToManyField('auth.User',through='books.User_author')
+
 	def __str__(self):
 		return self.author_name
 
@@ -59,6 +60,7 @@ class User_author(models.Model):
 class Category_book(models.Model):
 	category_id = models.ForeignKey('Category',on_delete=models.CASCADE)
 	book_id = models.ForeignKey('Book',on_delete=models.CASCADE)	
+
 class profile(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,)
 	image = models.ImageField( upload_to='books/images/users')	
