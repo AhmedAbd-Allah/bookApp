@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+{% csrf_token %}
+{% for author in context %}
+<li><a href="#">{{ author.author_name }}</a></li>
+{% endfor %}
+{% endblock %}

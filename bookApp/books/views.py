@@ -7,23 +7,13 @@ from django.contrib.auth import authenticate,login,logout
 from django.views import generic
 from django.views.generic import View
 from django import forms
-from .forms import RegisterUser
-from django.contrib.auth.models import User
 from .forms import RegisterUser,user_login
-
+from django.db.models import Q
 # from .forms import RegisterationForm
 
 # from django.core.context_processors import csrf
 
 # Create your views here.
-
-
-# def index(request):
-# 	return HttpResponse("hello world")
-
-def userinfo(request,user_id):
-	user = User.objects.get(id = user_id)
-	return render(request, 'books/userinfo.html', {"user": user})
 
 User=get_user_model()
 
@@ -84,8 +74,17 @@ def authorView(request,author_id,*args,**kwargs):
 #all authors page view
 def allAuthorView(request,*args,**kwargs):
 	authors=Author.objects.all()
-	return render(request,'books/all_authors.html',{'authors':authors})			
+	return render(request,'books/all_authors.html',{'authors':authors})	
 
+def search(request,*args,**kwargs):
+	if request.method=='GET':
+		query=request.GET['search_text']
+	else:
+		query=''	
+	authors=Author.objects.filter(Q(author_name__icontains=query))
+	# books=Book.objects.filter(Q(book_name__icontains=query))
+	context={'authors':authors}
+	return render(request,'books/search.html',context)
 	# def get(self,request):
 	# 	form = self.form_class()
 	# 	render(request,self.template,{'form':form})
