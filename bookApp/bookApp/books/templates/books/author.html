@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} {{author.author_name}} {% endblock %}
+{% block content %}
+<body id="authorpage">
+<div >
+<h3 id="autname">{{author.author_name}}</h3>
+<img src="{{ author.image.url }}" id=authpic >
+<br>
+<input type="checkbox" id="followbutton">	
+</div>
+<div class="container" id="bio">
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Show Bio</button>
+<div id="demo" class="collapse">
+ <p>{{author.Bio}}</p>
+</div>
+
+<div class="popcontainer">
+	<h2>Popular Books</h2>
+	
+{% for book in books %}
+
+<!-- <div class="hos">
+	<a href=""><img src="{{book.image.url}}"></a>
+</div> -->
+
+<div  class="cardd">
+  <img src="{{book.image.url}}" class="sora">
+  <div class="info">
+    <a href="/books/authors/{{author.author_id}}"><h3 align="center">{{author.author_name}}</h3></a>
+    <p align="center">{{book.published_at}}</p>
+  </div>  
+</div>
+
+{% endfor %}
+
+</div>
+{% endblock %}
+

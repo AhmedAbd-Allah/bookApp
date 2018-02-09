@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+            
+            <section class="sect "> 
+
+
+        
+<h1>Read List</h1>
+<div id="readbooksdiv">
+{% for book in read_books %}
+  {% for ubook in user_books %} 
+    {% if book.book_id_id == ubook.book_id %}
+      <div  class="cardd">
+        <img src="{{ubook.image.url}}" class="sora">
+          <div class="info">
+            <a href="/books/books/{{ubook.book_id}}"><h3 align="center">{{ubook.book_name}}</h3></a>
+             <p align="center">{{ubook.published_at}}</p>
+          </div>  
+      </div>
+   {% endif %}
+  {% endfor %}
+{% endfor %}
+</div>
+<div id="favcategory">
+  <h1>Favourite Categories</h1>
+            {% for cat in fav_category %} 
+          
+                       <div id="favcatlink"> 
+                        <h3 align="center">
+                        <a href="/books/category/{{cat.category_id}}">{{cat.category_name}}</h3>
+                        </a>
+                         </div>        
+            {% endfor %}     
+</div>
+          <div id="wishdiv">
+                <h1>Wish List</h1>
+                {% for book in wish_books %}
+                {% for ubook in user_books %} 
+                  {% if book.book_id_id == ubook.book_id %}
+                    <div  class="card2">
+                      <img src="{{ubook.image.url}}" class="sora">
+                        <div class="info">
+                          <a href="/books/books/{{ubook.book_id}}"><h3 align="center">{{ubook.book_name}}</h3></a>
+                            <p align="center">{{ubook.published_at}}</p>
+                        </div>  
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+        </div>
+          <div id="followdiv">
+                <h1>Followed Authors</h1>
+                {% for f_author in followed_authors %}
+                <div  class="card3">
+                      <img src="{{f_author.image.url}}" class="sora">
+                        <div class="info">
+                          <a href="/books/authors/{{f_author.author_id}}"><h3 align="center">{{f_author.author_name}}</h3></a>
+                            <p align="center">{{f_author.Dob}}</p>
+                        </div>  
+                    </div>
+            {% endfor %}   
+  </div>         
+{% endblock %}

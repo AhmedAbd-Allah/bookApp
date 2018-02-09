@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+
+<div  class="cardd">
+                      <img src="{{book.image.url}}" class="sora">
+                    </div>
+
+<div class="bookdetails">
+<div>
+<h2>Book Name</h2>
+<p>		{{ book.book_name}}</p>
+</div>
+
+<div>
+<h2>Summary</h2>
+<p>		{{ book.summary}}</p>
+</div>
+<div>
+<h2>Published Date</h2>
+<p>	{{ book.published_at}}
+</div>
+<div>
+<h2>Book link</h2>
+<p><a href="{{ book.link }}">{{ book.link }}</a>
+</p>
+</div>
+</div>
+
+
+
+<div id="ratingStars">
+	
+	<fieldset class="rating">
+    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars" id="5"></label>
+    
+    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Very Good 4 stars" id="4"></label>
+   
+    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Good 3 stars" id="3"></label>
+    
+    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Not Bad 2 stars" id="2"></label>
+    
+    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Don't Recommend 1 star" id="1" ></label>
+    
+</fieldset>
+  </div>
+
+ <script type="text/javascript">
+ 	var stars = document.getElementsByClassName('full')
+ 	for(i=0; i<5; i++)
+ 	{
+ 		stars[i].addEventListener("click",function(e){
+ 		e.preventDefault()
+ 		var number = Number(e.target.id)
+ 		var bookid = Number({{book.book_id}})
+/* 		window.location.href='rate.html?myrate='+number+'&id'=+bookid;
+*/ 		self.location='rate/{{book.book_id}}/'+number;
+
+ 	})
+ 	}
+ 	 
+ 
+		/*?myrate=number&id=bookid*/
+ </script>  	
+ 	
+
+
+	
+	<!-- 
+ 	/*{
+
+ 		stars[i].addEventListener("click",function(e){
+ 		e.preventDefault()
+ 		var number = e.target.id
+ 		console.log(number)
+		})
+ 	}
+ 	*/ -->
+
+
+ 
+
+
+
+
+
+
+
+
+<div id="buttons">
+
+<div id="read_unread">
+	{% if status == 'r' %}
+		<button type="button" id="read" class="btn btn-primary btn-lg"><a href="{% url 'unread' book.book_id %}">Mark as unread</a></button>
+	{% else %}
+		<button type="button" id="read" class="btn btn-primary btn-lg"><a href="{% url 'read' book.book_id %}">Mark as read</a></button>
+	{% endif %}
+</div>
+
+<div id="wish_unwish">
+	{% if status == 'w' %}
+		<button type="button" id="wish" class="btn btn-primary btn-lg"><a href="{% url 'unwish' book.book_id %}">remove from database</a></button>
+	{% elif status == 'r' %}
+		<!-- <input type="button" disabled> -->
+		<button type="button" id="wish" class="btn btn-primary btn-lg" disabled><a>add to wish list</a></button>
+	{% else %}
+		<button type="button" id="wish" class="btn btn-primary btn-lg"><a href="{% url 'wish' book.book_id %}">add to wish list</a></button>
+	{% endif %}
+</div>
+	
+
+
+</div>
+{% endblock %}

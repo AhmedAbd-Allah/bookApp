@@ -1,0 +1,130 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %} {% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'homestyle.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}"> 
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Calligraffitti" />
+
+</head>
+<body id="body">
+    <!-- header -->
+    {% if user.is_authenticated %}
+      <div class="container">
+       <nav class="navbar navbar-inverse" navbar-fixed-top>
+          <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="#">ReadMania</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><a href="/books/myhome/{{request.user.id}}">Home</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+
+                  <li><a href="/books/category/1">Action</a></li>
+                  <li><a href="/books/category/2">Art</a></li>
+                  <li><a href="/books/category/3">Politics</a></li>
+                  <li><a href="/books/category/4">Romance</a></li>
+                  <li><a href="/books/category/5">Drama</a></li>
+                  <li><a href="/books/category/6">Sience Fiction</a></li>
+                </ul>
+              </li>
+              <li><a href="/books/authors">Authors</a></li>
+              <li><a href="#">Books</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/books/userinfo/{{user.id}}"><span class="glyphicon glyphicon-user"></span> {{user.username}}</a></li>
+               {% if user.profile.image %}
+              <div class="image-container">
+                {% csrf_token %}
+
+                <img src="{{ user.profile.image.url | default:'#'}}" width="30px" height="30px" id="profile-image">
+              </div>
+              {% endif %}
+              <li id="log-out"><a href="/books/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+            <form class="navbar-form navbar-left" method="GET" action="/books/search">
+              <div class="form-group">
+              <input type="text" name="search_text" class="form-control" id="navBarSearchForm" placeholder="Search authors or books">
+              </div>
+            <button type="submit" class="btn btn-info" style="background-color: #8B1A1A">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+            </form>
+          </div>
+        </nav> 
+    </div>
+    {% else %}
+  
+
+    <div class="container">
+       <nav class="navbar navbar-inverse" navbar-fixed-top>
+          <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="#">ReadMania</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><a href="/books">Home</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/books/category/1">Action</a></li>
+                  <li><a href="/books/category/2">Art</a></li>
+                  <li><a href="/books/category/3">Politics</a></li>
+                  <li><a href="/books/category/4">Romance</a></li>
+                  <li><a href="/books/category/5">Drama</a></li>
+                  <li><a href="/books/category/6">Sience Fiction</a></li>
+                </ul>
+              </li>
+              <li><a href="/books/authors">Authors</a></li>
+              <li><a href="#">Books</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/books/registeration"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="/books/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+            <form class="navbar-form navbar-left" action="/books/search/">
+              <div class="form-group">
+              <input type="text" name="search_text" class="form-control" id="navBarSearchForm" placeholder="Search">
+              </div>
+            <button type="submit"  class="btn btn-info" style="background-color: #8B1A1A">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+            </form>
+          </div>
+        </nav> 
+    </div>
+    {% endif %}
+
+
+        <h2 style="color: red">{% block header %}{% endblock %}</h2>
+
+        
+
+        
+                {% block content %}
+  
+
+
+                {% endblock %}
+
+                
+                {% block content1 %}
+                
+                {% endblock %}
+       
+
+
+</body>
+</html>

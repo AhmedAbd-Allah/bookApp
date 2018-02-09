@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+<h2>All Authors</h2>
+{% endblock %}
+
+{%block content%}
+
+{% for author in authors %}
+<div  class="cardd">
+  <img src="{{author.image.url}}" class="sora">
+  <div class="info">
+    <a href="/books/authors/{{author.author_id}}"><h3 align="center">{{author.author_name}}</h3></a>
+    <!-- <p align="center">{{.published_at}}</p> -->
+  </div>  
+</div>
+<!-- tr><a href="/books/authors/{{author.author_id}}">{{ author.author_name }}</a></tr><br> -->
+{% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 id="cattitle">    {{category.category_name}} cateogry</h2>
+<button > <a href="{% url 'addToFavourite' category.category_id %}">Add To Favourites key</a>
+</button>
+
+{% for object in catObject %}
+{% for book in books %}
+{% if object.book_id_id == book.book_id %}
+<div  class="cardd">
+  <img src="{{book.image.url}}" class="sora">
+  <div class="info">
+    <a href=""><h3 align="center">{{book.book_name}}</h3></a>
+    <p align="center">{{book.published_at}}</p>
+  </div>  
+</div>
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endblock %}

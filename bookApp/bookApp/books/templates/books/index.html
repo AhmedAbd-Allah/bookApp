@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+	{% csrf_token %}
+	<!-- <li><a href="#">{{ author.author_name }}</a></li> -->
+	<div class=author-container>
+	<h2>Authors</h2>
+	{% for author in authors %}
+	<!-- <li><a href="/books/authors/{{author.author_id}}">{{ author.author_name }}</a></li> -->
+	<div  class="cardd">
+	  <img src="{{author.image.url}}" class="sora">
+	  <div class="info">
+	    <a href="/books/authors/{{author.author_id}}"><h3 align="center">{{author.author_name}}</h3></a>
+	  </div>  
+	</div>
+	{% endfor %}
+	</div>
+{% endblock %}
+{% block content1 %}
+<div class=book-container>
+<h2>Books</h2>
+{% for book in books %}
+<div  class="cardd2">
+  <img src="{{book.image.url}}" class="sora">
+  <div class="info">
+    <a href="/books/books/{{book.book_id}}"><h5 align="center">{{book.book_name}}</h5></a>
+    <p align="center">{{book.published_at}}</p>
+  </div>
+</div> 
+{% endfor %}
+<div>
+{% endblock %}
