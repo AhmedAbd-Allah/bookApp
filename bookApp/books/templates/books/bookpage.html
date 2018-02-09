@@ -28,6 +28,9 @@
 <p><a href="{{ book.link }}">{{ book.link }}</a>
 </p>
 </div>
+<div id="a">
+	Book Rate {{book_rate.rateAvg}}
+</div>
 </div>
 
 
@@ -94,20 +97,20 @@
 
 <div id="read_unread">
 	{% if status == 'r' %}
-		<button type="button" id="read" class="btn btn-primary btn-lg"><a href="{% url 'unread' book.book_id %}">Mark as unread</a></button>
+		<button type="button" id="read" ><a href="{% url 'unread' book.book_id %}">Mark as unread</a></button>
 	{% else %}
-		<button type="button" id="read" class="btn btn-primary btn-lg"><a href="{% url 'read' book.book_id %}">Mark as read</a></button>
+		<button type="button" id="read" ><a href="{% url 'read' book.book_id %}">Mark as read</a></button>
 	{% endif %}
 </div>
 
 <div id="wish_unwish">
 	{% if status == 'w' %}
-		<button type="button" id="wish" class="btn btn-primary btn-lg"><a href="{% url 'unwish' book.book_id %}">remove from database</a></button>
+		<button type="button" id="wish" ><a href="{% url 'unwish' book.book_id %}">remove from database</a></button>
 	{% elif status == 'r' %}
 		<!-- <input type="button" disabled> -->
-		<button type="button" id="wish" class="btn btn-primary btn-lg" disabled><a>add to wish list</a></button>
+		<button type="button" id="wish"  disabled><a>add to wish list</a></button>
 	{% else %}
-		<button type="button" id="wish" class="btn btn-primary btn-lg"><a href="{% url 'wish' book.book_id %}">add to wish list</a></button>
+		<button type="button" id="wish" ><a href="{% url 'wish' book.book_id %}">add to wish list</a></button>
 	{% endif %}
 </div>
 	

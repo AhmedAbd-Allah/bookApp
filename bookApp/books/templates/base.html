@@ -40,7 +40,7 @@
                 </ul>
               </li>
               <li><a href="/books/authors">Authors</a></li>
-              <li><a href="#">Books</a></li>
+              <li><a href="/books/allbooks">Books</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/books/userinfo/{{user.id}}"><span class="glyphicon glyphicon-user"></span> {{user.username}}</a></li>
@@ -88,7 +88,7 @@
                 </ul>
               </li>
               <li><a href="/books/authors">Authors</a></li>
-              <li><a href="#">Books</a></li>
+              <li><a href="/books/allbooks">Books</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/books/registeration"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -109,9 +109,6 @@
 
 
         <h2 style="color: red">{% block header %}{% endblock %}</h2>
-
-        
-
         
                 {% block content %}
   

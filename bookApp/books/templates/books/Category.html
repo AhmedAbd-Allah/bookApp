@@ -3,8 +3,7 @@
 {% block content %}
 
 <h2 id="cattitle">    {{category.category_name}} cateogry</h2>
-<button > <a href="{% url 'addToFavourite' category.category_id %}">Add To Favourites key</a>
-</button>
+
 
 {% for object in catObject %}
 {% for book in books %}

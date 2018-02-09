@@ -7,11 +7,12 @@ from django.contrib.auth import authenticate,login,logout
 from django.views import generic
 from django.views.generic import View
 from django import forms
-from .forms import RegisterUser,user_login,uploadImageForm
+from .forms import RegisterUser,user_login,uploadImageForm,editUserInfo
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.views.decorators import csrf
 from django.views.decorators.csrf import csrf_protect
+from django.db.models import Avg
 
 User=get_user_model()
 
@@ -102,9 +103,14 @@ def allAuthorView(request,*args,**kwargs):
 	authors=Author.objects.all()
 	return render(request,'books/all_authors.html',{'authors':authors,'title':'All authors'})	
 
+def allBooksView(request):
+	books=Book.objects.all()
+	return render(request,'books/all_books.html',{'books':books,'title':'All books'})
+
 def userinfo(request,user_id):
 	user = User.objects.get(id = user_id)
 	return render(request, 'books/userinfo.html', {"user": user,'title':'userInfo'}) 	
+
 
 def search(request,*args,**kwargs):
 	if request.method=='GET':
@@ -148,16 +154,36 @@ def upload(request,user_id):
 	return render(request,'books/userinfo.html',{'Object':Object})
 
 
+# def editUserInfoView(request,user_id):
+# 	user = User.objects.get(id = user_id)
+# 	if request.method=='GET':
+# 		form = RegisterUser(initial={'first_name':user.first_name, 'last_name':user.last_name, 'username':user.username, 'email':user.email})
+# 		return render(request,'books/editUserInfoForm.html',{'form':form, 'user':user})
+# 	elif request.method=='POST':
+# 		form = RegisterUser(request.POST)
+# 		if form.is_valid():
+# 			User.objects.filter(id=user_id).update( username = form.cleaned_data['username'], email = form.cleaned_data['email'], first_name = form.cleaned_data['first_name'], last_name = form.cleaned_data['last_name'])
+# 			# user.save()
+# 			catuser=User.objects.get(id=request.user.id)
+# 			statbook=User_book.objects.filter(user_id=request.user.id)
+# 			fav_category=catuser.category_set.all()
+# 			user_books=catuser.book_set.all()
+# 			followed_authors=catuser.author_set.all()
+# 			read_books=statbook.filter(status='r').values()
+# 			wish_books=statbook.filter(status='w').values()
+# 			return render(request,"books/userhome.html/",{'user_id':request.user.id,'fav_category':fav_category,'user_books':user_books,'followed_authors':followed_authors,'statbook':statbook,'read_books':read_books,'wish_books':wish_books})
+# 		else:
+# 			return render(request,'books/editUserInfoForm.html',{'form':form, 'user':user})
+
+
 def editUserInfoView(request,user_id):
 	user = User.objects.get(id = user_id)
 	if request.method=='GET':
-		form = RegisterUser(initial={'first_name':user.first_name, 'last_name':user.last_name, 'username':user.username, 'email':user.email})
+		form = editUserInfo(initial={'first_name':user.first_name, 'last_name':user.last_name, 'email':user.email})
 		return render(request,'books/editUserInfoForm.html',{'form':form, 'user':user})
 	elif request.method=='POST':
-		form = RegisterUser(request.POST)
+		form = editUserInfo(request.POST)
 		if form.is_valid():
-			User.objects.filter(id=user_id).update( username = form.cleaned_data['username'], email = form.cleaned_data['email'], first_name = form.cleaned_data['first_name'], last_name = form.cleaned_data['last_name'])
-			# user.save()
 			catuser=User.objects.get(id=request.user.id)
 			statbook=User_book.objects.filter(user_id=request.user.id)
 			fav_category=catuser.category_set.all()
@@ -165,10 +191,10 @@ def editUserInfoView(request,user_id):
 			followed_authors=catuser.author_set.all()
 			read_books=statbook.filter(status='r').values()
 			wish_books=statbook.filter(status='w').values()
+			User.objects.filter(id=user_id).update(email = form.cleaned_data['email'], first_name = form.cleaned_data['first_name'], last_name = form.cleaned_data['last_name'])
 			return render(request,"books/userhome.html/",{'user_id':request.user.id,'fav_category':fav_category,'user_books':user_books,'followed_authors':followed_authors,'statbook':statbook,'read_books':read_books,'wish_books':wish_books})
 		else:
 			return render(request,'books/editUserInfoForm.html',{'form':form, 'user':user})
-
 
 def categoryView(request,cat_id):
 	category=Category.objects.get(category_id=cat_id)
@@ -187,9 +213,10 @@ def addToFavourite(request,favcatid):
 
 def showBook(request,bookId,*args,**kwargs):
 	if request.user.is_authenticated:
+		book_rate = User_book.objects.values('book_id').annotate(rateAvg=Avg('rate'))[int(bookId)-1]
 		required_book = Book.objects.get(book_id=bookId)
 		bookstatus = User_book.objects.get(book_id=bookId,user_id=request.user.id)
-		return render(request,'books/bookpage.html',{'book':required_book, 'status': bookstatus.status})
+		return render(request,'books/bookpage.html',{'book':required_book, 'status': bookstatus.status ,'book_rate': book_rate})
 	else:
 		required_book = Book.objects.get(book_id=bookId)
 		return render(request,'books/bookpage.html',{'book':required_book})

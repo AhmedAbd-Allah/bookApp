@@ -21,17 +21,7 @@
   {% endfor %}
 {% endfor %}
 </div>
-<div id="favcategory">
-  <h1>Favourite Categories</h1>
-            {% for cat in fav_category %} 
-          
-                       <div id="favcatlink"> 
-                        <h3 align="center">
-                        <a href="/books/category/{{cat.category_id}}">{{cat.category_name}}</h3>
-                        </a>
-                         </div>        
-            {% endfor %}     
-</div>
+
           <div id="wishdiv">
                 <h1>Wish List</h1>
                 {% for book in wish_books %}

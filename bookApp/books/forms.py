@@ -49,6 +49,15 @@ class uploadImageForm(forms.ModelForm):
 		model = profile
 		fields = ['image']
 
+class editUserInfo(forms.ModelForm):
+    first_name=forms.CharField(label='First Name',max_length=100)
+    last_name=forms.CharField(label='Last Name',max_length=100)
+    email = forms.EmailField(label='Email', max_length=100)
+
+    class Meta:
+    	model = User
+    	fields = ['first_name','last_name','email']		
+
 				
 		# user_obj=User.objects.filter(username=username).first()
 		# if not user_obj:

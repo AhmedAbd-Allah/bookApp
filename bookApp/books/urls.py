@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout/',login_required(views.logoutView),name='logout'),
     re_path('^authors/(?P<author_id>[0-9]+)$',login_required(views.authorView),name='author'),
     path('authors/',login_required(views.allAuthorView),name='authors'),
+    path('allbooks/',login_required(views.allBooksView),name='books'),
     path('search/',views.search,name='search'),
     re_path('^userinfo/(?P<user_id>[0-9]+)$',login_required(views.userinfo),name='userinfo'),
     re_path('^category/(?P<cat_id>[0-9]+)$',views.categoryView,name='category'),
