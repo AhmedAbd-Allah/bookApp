@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block header %}
+{{ title }}
+{% endblock %}
+{% block content %}
+<h2>Books</h2>
+{% for book in books %}
+<a href="">{{ book }}</a><br>
+{% endfor %}
+<h2>Authors</h2>
+{% for author in authors %}
+<a href="">{{ author }}</a><br>
+{% endfor %}
+{% endblock %}

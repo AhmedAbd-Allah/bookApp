@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
+
 {% block content %}
 {% csrf_token %}
-{% for author in context %}
-<li><a href="#">{{ author.author_name }}</a></li>
+<!-- % for author in context %} -->
+<!-- <li><a href="#">{{ author.author_name }}</a></li> -->
+<h2>Authors</h2>
+{% for author in authors %}
+<li><a href="/books/authors/{{author.author_id}}">{{ author.author_name }}</a></li>
+{% endfor %}
+<h2>Books</h2>
+{% for book in books %}
+<li><a href="#">{{ book.book_name }}</a></li>
 {% endfor %}
 {% endblock %}

@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block image %}
+
+<img src="{{Object.image.url}}">
+{% endblock %}
+
 {% block content %}
 
 	<h1>User Info Page</h1>
@@ -12,5 +17,21 @@
 	<br><br>
 	E-mail: {{user.email}}
 	<br><br>
+	
+	to upload image <a href="/books/uploadimage/{{request.user.id}}">Click here</a>
 
+	
+
+	
 {% endblock %}
+
+<!-- form = RegistrationForm(request.POST, request.FILES)
+profile = Profile()
+username = request.POST.get('username')
+		email = request.POST.get('email')
+		password = request.POST.get('password')
+		newUser=User.objects.create_user(username=username,email=email,password=password)
+		profile.user=newUser
+		profile.profile_picture=form.cleaned_data['img']
+		profile.save()
+		return render(request,"books/home.html") -->

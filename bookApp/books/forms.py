@@ -1,10 +1,13 @@
 from django.contrib.auth.models import User
+from .models import profile
 from django.contrib.auth import get_user_model,authenticate
 from django import forms
 from .models import Author
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 User=get_user_model()
+
+
 
 
 
@@ -38,6 +41,14 @@ class user_login(forms.Form):
 		if not the_user:
 			raise forms.ValidationError("invalid Credentials")
 		return super(user_login,self).clean()
+
+class uploadImageForm(forms.ModelForm):
+	image=forms.ImageField(label='profile picture')
+
+	class Meta:
+		model = profile
+		fields = ['image']
+
 				
 		# user_obj=User.objects.filter(username=username).first()
 		# if not user_obj:

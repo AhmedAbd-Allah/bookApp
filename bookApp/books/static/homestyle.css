@@ -1,0 +1,34 @@
+ .sect{
+        
+        width: 1500px;
+        height: 650px;
+        float: right;
+      }
+
+      #firstThum{
+        position: relative;
+        top: 0px;
+        left:20px;
+      }
+
+      #secondThum{
+        position: relative;
+        top: -527px;
+        left:350px;
+      }
+
+      #thirdThum{
+        position: relative;
+        top: -1055px;
+        left:700px;
+      }
+
+      #import_id{
+        width: 100%;
+        height: 500px;
+      }
+
+      #img_id{
+        width: 270px;
+        height:370px;
+      }

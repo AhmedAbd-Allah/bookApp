@@ -1,4 +1,45 @@
 /*body {
-   background-image: url("book.jpg");
-   background-color: #cccccc;
-}*/
+   background-image: url("/static/book.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center center;
+   
+   
+}
+*/
+.navbar-brand{
+	font-family: Calligraffitti;
+	font-style: italic;
+}
+
+#navBarSearchForm input[type=text]{
+	width:100px !important;
+}
+
+#profile-image{
+	position: absolute;
+	right:276px;
+	height:50px;
+	width:30px;
+}
+
+.cardd {
+display: inline;
+float: left;
+margin: 25px;
+border: 2px solid;
+border-color: black;
+background-color: #DCDCDC;
+width:15%;
+
+}
+
+.sora {
+width: 100%;
+height: 180px;
+}
+
+#cattitle {
+	margin-left:  20px;
+
+}

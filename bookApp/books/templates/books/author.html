@@ -5,7 +5,7 @@
 <body id="authorpage">
 <div >
 <h3 id="autname">{{author.author_name}}</h3>
-<img src="../../{{ author.image }}" id=authpic >
+<img src="{{ author.image.url }}" id=authpic >
 <br>
 <input type="checkbox" id="followbutton">	
 </div>
@@ -14,15 +14,25 @@
 <div id="demo" class="collapse">
  <p>{{author.Bio}}</p>
 </div>
+
 <div class="popcontainer">
 	<h2>Popular Books</h2>
-<div class="hos">
-	<a href=""><img src="../../static/imgs/cov2.jpg"></a>
-</div>
-<div class="hos">
 	
-	<a href=""><img src="../../static/imgs/cov1.jpg"></a>
+{% for book in books %}
+
+<!-- <div class="hos">
+	<a href=""><img src="{{book.image.url}}"></a>
+</div> -->
+
+<div  class="cardd">
+  <img src="{{book.image.url}}" class="sora">
+  <div class="info">
+    <a href="/books/authors/{{author.author_id}}"><h3 align="center">{{author.author_name}}</h3></a>
+    <p align="center">{{book.published_at}}</p>
+  </div>  
 </div>
+
+{% endfor %}
 
 </div>
 {% endblock %}
